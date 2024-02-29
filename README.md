@@ -1,24 +1,43 @@
-# Learning Equality Curriculum Recommendations
-Enhance learning by matching K-12 content to target topics
+# Learning Equality Curriculum Recommendations: Streamlining K-12 Content Matching
 
-The goal of this competition is to streamline the process of matching educational content to specific topics in a curriculum. You will develop an accurate and efficient model trained on a library of K-12 educational materials that have been organized into a variety of topic taxonomies. These materials are in diverse languages, and cover a wide range of topics, particularly in STEM (Science, Technology, Engineering, and Mathematics).
+## Overview
+This competition focuses on developing a model to efficiently and accurately match K-12 educational content to specific curriculum topics. The challenge involves working with a diverse library of K-12 materials, organized into various topic taxonomies and spanning multiple languages, with a strong emphasis on STEM subjects. The aim is to facilitate easier access for students and educators to pertinent educational resources, enhancing the learning experience.
 
-This work will enable students and educators to more readily access relevant educational content to support and supplement learning.
+## Background
+Globally, educational structures and objectives differ significantly. Most educational materials align with a single national system or lack a systematic organization, hindering easy discovery. Manually aligning digital materials to national curricula is time-consuming, resource-intensive, and requires expertise. This process is neither scalable nor sustainable in its current form, especially with the constant influx of new materials requiring realignment. There are no existing AI solutions to efficiently address these resource constraints in curriculum alignment.
 
-# Context
-Every country in the world has its own educational structure and learning objectives. Most materials are categorized against a single national system or are not organized in a way that facilitates discovery. The process of curriculum alignment, the organization of educational resources to fit standards, is challenging as it varies between country contexts.
+Learning Equality, dedicated to the right to quality education, supports creating, adapting, and distributing open educational resources. They develop tools like Kolibri, designed for offline-first teaching and learning, especially for regions without internet access, which constitutes 37% of the global population. In collaboration with UNHCR, Learning Equality emphasizes the need for automated alignment tools to aid refugee learners and teachers with relevant digital learning resources. This initiative has involved curriculum designers, teachers, and machine learning experts and is now extended to participants in this competition.
 
-Current efforts to align digital materials to national curricula are manual and require time, resources, and curricular expertise, and the process needs to be made more efficient in order to be scalable and sustainable. As new materials become available, they require additional efforts to be realigned, resulting in a never-ending process. There are no current algorithms or other AI interventions that address the resource constraints associated with improving the process of curriculum alignment.
+## Competition Setup
 
-Learning Equality is committed to enabling every person in the world to realize their right to a quality education, by supporting the creation, adaptation, and distribution of open educational resources, and creating supportive tools for innovative pedagogy. Their core product is Kolibri, an adaptable set of open solutions and tools specially designed to support offline-first teaching and learning for the 37% of the world without Internet access. Their close partner UNHCR has consistently highlighted the strong need and innovation required to create automated alignment tools to ensure refugee learners and teachers are provided with relevant digital learning resources. They have been jointly exploring this challenge in depth for the past few years, engaging with curriculum designers, teachers, and machine learning experts. In addition, Learning Equality is partnering with The Learning Agency Lab, an​ independent nonprofit focused on developing science of learning-based tools and programs for social good, along with UNHCR to engage you in this important process.
+### Environment Configuration
+1. Set up AWS credentials:
+   - Edit `~/.bash_profile` using `vim` and insert `export aws_UserName="yourName"`.
+   - Run `os.environ['aws_UserName'] = {yourName}` in Python console.
+   - Save `{yourName}_accessKeys.csv` on the desktop.
+   - Execute `setEnvVariables.py`.
 
+### Data Processing and Model Development
+1. **Building Topic Trees**:
+   - Utilize `pandas` for data handling.
+   - For each channel, create a topic tree using `parent_id` and `child_id` relationships.
+   - Merge parent and child nodes to construct a comprehensive topic tree for each level.
 
-# Setup - 
+2. **Visualizing Curriculum Structure**:
+   - Use `graphviz` to visualize topic trees, aiding in understanding the structure of specific curricula like CBSE.
 
-	1.	vim ~/.bash_profile
-	2.	press i to go into insert mode
-	3.	enter export aws_UserName="yourName"
-	4.	press esc, then type :wq
-	1.	Run os.environ['aws_UserName'] ={yourName} in your python console.
-	2.	Save {yourName}_accessKeys.csv on your desktop.
-	3.	Run setEnvVariables.py
+3. **Modeling for Content Matching**:
+   - Leverage models like `paraphrase-multilingual-mpnet-base-v2` and `all-miniLM-L6-v2` for semantic understanding.
+   - Employ `NearestNeighbors` for finding relevant content.
+   - Compute embeddings for content and topics, considering language variations.
+   - Use a mean pooling strategy over embeddings to handle varied lengths of text.
+   - Implement a customized F2 scoring system to evaluate model performance, focusing on precision and recall balance.
+
+4. **Advanced Techniques and Final Submission**:
+   - Explore sentence transformers for enhanced semantic matching.
+   - Iterate over different model architectures to optimize content-topic alignment.
+   - Submit the final predictions, ensuring compliance with competition guidelines.
+
+### Additional Analysis
+- Conduct a comprehensive analysis of the dataset, examining language distribution, content types, and correlation patterns among topics.
+- Use data visualization tools like `seaborn` and `matplotlib` for insights into the dataset characteristics.
